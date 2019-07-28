@@ -1,0 +1,48 @@
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\JEMS Fees Management System.exe.config
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\JEMS Fees Management System.exe
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\JEMS Fees Management System.pdb
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\Microsoft.SqlServer.Types.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\de\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\es\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\fr\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\it\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\ja\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\ko\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\pt\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\ru\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\zh-Hans\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\bin\Debug\zh-Hant\Microsoft.SqlServer.Types.resources.dll
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.DailyReportMngForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.Properties.Resources.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.ProvisionalForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.RegularAdmissionForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.SetUp.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS Fees Management System.csproj.GenerateResource.Cache
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\RdlCompile.cache
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\RdlCompile.compiled
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS Fees Management System.exe
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS Fees Management System.pdb
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS Fees Management System.csprojResolveAssemblyReference.cache
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.MainForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.ProvisionConfirmForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.MonthlyFeesForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.DailyMonthlyFeesReport.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.AnnualFeesForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.StudentEditMonthlyFeesForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.StudentEditAnnualFeesForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.EditStudentDetails.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.BaseFeesStructureForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.StudentFeesCardForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.SessionChange.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.StudentChangeClass.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.SessionConfig.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.ManualStudentForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.TCForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.DuesListAnnualReport.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.DuesListMonthlyReport.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.ReceiptForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.StudentReportForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.OtherFeesForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.OtherFeesReportForm.resources
+D:\Local_Disk(D;)\Software Files\JEMS Fees Management System\jems_fms\JEMS Fees Management System\JEMS Fees Management System\obj\Debug\JEMS_Fees_Management_System.BackupSettings.resources
