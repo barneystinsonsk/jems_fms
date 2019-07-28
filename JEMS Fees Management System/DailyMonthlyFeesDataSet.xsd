@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DailyMonthlyFeesDataSet" targetNamespace="http://tempuri.org/DailyMonthlyFeesDataSet.xsd" xmlns:mstns="http://tempuri.org/DailyMonthlyFeesDataSet.xsd" xmlns="http://tempuri.org/DailyMonthlyFeesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.JEMS_Fees_Management_System.Properties.Settings.GlobalReference.Default.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectName="Main" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>with Main as
+(
+
+select distinct receipt_id,student_id,
+case
+when 'APR' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'APR'
+when 'MAY' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'MAY'
+when 'JUN' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'JUN'
+when 'JUL' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'JUL'
+when 'AUG' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'AUG'
+when 'SEP' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'SEP'
+when 'OCT' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'OCT'
+when 'NOV' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'NOV'
+when 'DEC' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'DEC'
+when 'JAN' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'JAN'
+when 'FEB' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'FEB'
+when 'MAR' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'MAR'
+end
+as startM,
+case
+when 'MAR' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'MAR'
+when 'FEB' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'FEB'
+when 'JAN' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'JAN'
+when 'DEC' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'DEC'
+when 'NOV' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'NOV'
+when 'OCT' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'OCT'
+when 'SEP' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'SEP'
+when 'AUG' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'AUG'
+when 'JUL' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'JUL'
+when 'JUN' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'JUN'
+when 'MAY' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'MAY'
+when 'APR' in (select month from student_monthly_fees where receipt_id = base.receipt_id) then 'APR'
+end
+as endM,
+(select sum(tuition) from student_monthly_fees where receipt_id = base.receipt_id) as tuition,
+(select sum(management) from student_monthly_fees where receipt_id = base.receipt_id) as management,
+(select sum(smart_class) from student_monthly_fees where receipt_id = base.receipt_id) as smart_class,
+(select sum(report_diary) from student_monthly_fees where receipt_id = base.receipt_id) as report_diary,
+(select sum(sports) from student_monthly_fees where receipt_id = base.receipt_id) as sports,
+(select sum(science) from student_monthly_fees where receipt_id = base.receipt_id) as science,
+(select sum(red_cross) from student_monthly_fees where receipt_id = base.receipt_id) as red_cross,
+(select sum(guide) from student_monthly_fees where receipt_id = base.receipt_id) as guide,
+(select sum(insurance) from student_monthly_fees where receipt_id = base.receipt_id) as insurance,
+(select sum(school_activities) from student_monthly_fees where receipt_id = base.receipt_id) as school_activities,
+(select sum(computer) from student_monthly_fees where receipt_id = base.receipt_id) as computer,
+(select sum(local_exam) from student_monthly_fees where receipt_id = base.receipt_id) as local_exam,
+(select sum(late_fees) from student_monthly_fees where receipt_id = base.receipt_id) as late_fees,
+(select sum(tuition) + sum(management)  + sum(smart_class)  + sum(report_diary) + sum(sports) 
+ + sum(science) + sum(red_cross) + sum(guide) + sum(insurance) + sum(school_activities) + sum(computer)
+ + sum(local_exam) + sum(late_fees) 
+from student_monthly_fees where receipt_id = base.receipt_id) as total,
+terminal,
+(select sum(cheque) from student_monthly_fees where receipt_id = base.receipt_id) as cheque,
+session
+
+from student_monthly_fees base where receipt_id is not null and date &gt;= @date1 and date &lt;= @date2
+and session like  @session 
+)
+
+select Main.receipt_id,Main.student_id,startM,endM,
+tuition,
+management,
+smart_class,
+report_diary,
+sports,
+science,
+red_cross,
+guide,
+insurance,
+school_activities,
+computer,
+local_exam,
+late_fees,
+total,
+terminal,
+cheque,
+session, (select class from student_monthly_fees where receipt_id = Main.receipt_id and month = Main.endM)
+as class,
+
+case
+when terminal in (1) then total
+ else 0
+end as term1sum,
+
+case
+when terminal in (2) then total
+ else 0
+end as term2sum,
+
+case
+when terminal in (3) then total
+ else 0
+end as term3sum,
+
+case
+when terminal in (4) then total
+ else 0
+end as term4sum,
+
+case
+when terminal in (5) then total
+ else 0
+end as term5sum,
+
+case 
+when terminal in (1) then cheque
+else 0
+end as term1chq,
+case 
+when terminal in (2) then cheque
+else 0
+end as term2chq,
+case 
+when terminal in (3) then cheque
+else 0
+end as term3chq,
+case 
+when terminal in (4) then cheque
+else 0
+end as term4chq,
+case 
+when terminal in (5) then cheque
+else 0
+end as term5chq,
+(select terminal_names.name from terminal_names where terminal_names.id = 1 ) as term1Name,
+(select terminal_names.name from terminal_names where terminal_names.id = 2 ) as term2Name,
+(select terminal_names.name from terminal_names where terminal_names.id = 3 ) as term3Name,
+(select terminal_names.name from terminal_names where terminal_names.id = 4 ) as term4Name,
+(select terminal_names.name from terminal_names where terminal_names.id = 5 ) as term5Name,
+(select student_details.first_name from student_details where student_id = Main.student_id) as name
+from Main join student_details on Main.student_id = student_details.student_id 
+and 
+(
+	('NEW' = @studentType and student_details.admission_session = @currentSession)
+	or
+	('OLD' = @studentType and student_details.admission_session &lt; @currentSession)
+	or
+	('ALL' = @studentType)
+
+)
+
+order by Main.receipt_id;</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="date1" ColumnName="" DataSourceName="" DataTypeServer="date" DbType="Date" Direction="Input" ParameterName="@date1" Precision="0" ProviderType="DateTime" Scale="0" Size="3" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="date2" ColumnName="" DataSourceName="" DataTypeServer="date" DbType="Date" Direction="Input" ParameterName="@date2" Precision="0" ProviderType="DateTime" Scale="0" Size="3" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="session" ColumnName="" DataSourceName="" DataTypeServer="nchar(4)" DbType="String" Direction="Input" ParameterName="@session" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="studentType" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="String" Direction="Input" ParameterName="@studentType" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="currentSession" ColumnName="admission_session" DataSourceName="jems_database_3.dbo.student_details" DataTypeServer="numeric(4, 0)" DbType="Decimal" Direction="Input" ParameterName="@currentSession" Precision="4" ProviderType="Decimal" Scale="0" Size="5" SourceColumn="admission_session" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="receipt_id" DataSetColumn="receipt_id" />
+              <Mapping SourceColumn="startM" DataSetColumn="startM" />
+              <Mapping SourceColumn="endM" DataSetColumn="endM" />
+              <Mapping SourceColumn="tuition" DataSetColumn="tuition" />
+              <Mapping SourceColumn="management" DataSetColumn="management" />
+              <Mapping SourceColumn="smart_class" DataSetColumn="smart_class" />
+              <Mapping SourceColumn="report_diary" DataSetColumn="report_diary" />
+              <Mapping SourceColumn="sports" DataSetColumn="sports" />
+              <Mapping SourceColumn="science" DataSetColumn="science" />
+              <Mapping SourceColumn="red_cross" DataSetColumn="red_cross" />
+              <Mapping SourceColumn="guide" DataSetColumn="guide" />
+              <Mapping SourceColumn="insurance" DataSetColumn="insurance" />
+              <Mapping SourceColumn="school_activities" DataSetColumn="school_activities" />
+              <Mapping SourceColumn="computer" DataSetColumn="computer" />
+              <Mapping SourceColumn="local_exam" DataSetColumn="local_exam" />
+              <Mapping SourceColumn="late_fees" DataSetColumn="late_fees" />
+              <Mapping SourceColumn="total" DataSetColumn="total" />
+              <Mapping SourceColumn="terminal" DataSetColumn="terminal" />
+              <Mapping SourceColumn="cheque" DataSetColumn="cheque" />
+              <Mapping SourceColumn="class" DataSetColumn="class" />
+              <Mapping SourceColumn="term1sum" DataSetColumn="term1sum" />
+              <Mapping SourceColumn="term2sum" DataSetColumn="term2sum" />
+              <Mapping SourceColumn="term3sum" DataSetColumn="term3sum" />
+              <Mapping SourceColumn="term4sum" DataSetColumn="term4sum" />
+              <Mapping SourceColumn="term5sum" DataSetColumn="term5sum" />
+              <Mapping SourceColumn="term1chq" DataSetColumn="term1chq" />
+              <Mapping SourceColumn="term2chq" DataSetColumn="term2chq" />
+              <Mapping SourceColumn="term3chq" DataSetColumn="term3chq" />
+              <Mapping SourceColumn="term4chq" DataSetColumn="term4chq" />
+              <Mapping SourceColumn="term5chq" DataSetColumn="term5chq" />
+              <Mapping SourceColumn="term1Name" DataSetColumn="term1Name" />
+              <Mapping SourceColumn="term2Name" DataSetColumn="term2Name" />
+              <Mapping SourceColumn="term3Name" DataSetColumn="term3Name" />
+              <Mapping SourceColumn="term4Name" DataSetColumn="term4Name" />
+              <Mapping SourceColumn="term5Name" DataSetColumn="term5Name" />
+              <Mapping SourceColumn="student_id" DataSetColumn="student_id" />
+              <Mapping SourceColumn="name" DataSetColumn="name" />
+              <Mapping SourceColumn="session" DataSetColumn="session" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DailyMonthlyFeesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DailyMonthlyFeesDataSet" msprop:Generator_UserDSName="DailyMonthlyFeesDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="receipt_id" msprop:Generator_ColumnVarNameInTable="columnreceipt_id" msprop:Generator_ColumnPropNameInRow="receipt_id" msprop:Generator_ColumnPropNameInTable="receipt_idColumn" msprop:Generator_UserColumnName="receipt_id" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="startM" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnstartM" msprop:Generator_ColumnPropNameInRow="startM" msprop:Generator_ColumnPropNameInTable="startMColumn" msprop:Generator_UserColumnName="startM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="endM" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnendM" msprop:Generator_ColumnPropNameInRow="endM" msprop:Generator_ColumnPropNameInTable="endMColumn" msprop:Generator_UserColumnName="endM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="tuition" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntuition" msprop:Generator_ColumnPropNameInRow="tuition" msprop:Generator_ColumnPropNameInTable="tuitionColumn" msprop:Generator_UserColumnName="tuition" type="xs:decimal" minOccurs="0" />
+              <xs:element name="management" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnmanagement" msprop:Generator_ColumnPropNameInRow="management" msprop:Generator_ColumnPropNameInTable="managementColumn" msprop:Generator_UserColumnName="management" type="xs:decimal" minOccurs="0" />
+              <xs:element name="smart_class" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnsmart_class" msprop:Generator_ColumnPropNameInRow="smart_class" msprop:Generator_ColumnPropNameInTable="smart_classColumn" msprop:Generator_UserColumnName="smart_class" type="xs:decimal" minOccurs="0" />
+              <xs:element name="report_diary" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnreport_diary" msprop:Generator_ColumnPropNameInRow="report_diary" msprop:Generator_ColumnPropNameInTable="report_diaryColumn" msprop:Generator_UserColumnName="report_diary" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sports" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnsports" msprop:Generator_ColumnPropNameInRow="sports" msprop:Generator_ColumnPropNameInTable="sportsColumn" msprop:Generator_UserColumnName="sports" type="xs:decimal" minOccurs="0" />
+              <xs:element name="science" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnscience" msprop:Generator_ColumnPropNameInRow="science" msprop:Generator_ColumnPropNameInTable="scienceColumn" msprop:Generator_UserColumnName="science" type="xs:decimal" minOccurs="0" />
+              <xs:element name="red_cross" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnred_cross" msprop:Generator_ColumnPropNameInRow="red_cross" msprop:Generator_ColumnPropNameInTable="red_crossColumn" msprop:Generator_UserColumnName="red_cross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="guide" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnguide" msprop:Generator_ColumnPropNameInRow="guide" msprop:Generator_ColumnPropNameInTable="guideColumn" msprop:Generator_UserColumnName="guide" type="xs:decimal" minOccurs="0" />
+              <xs:element name="insurance" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columninsurance" msprop:Generator_ColumnPropNameInRow="insurance" msprop:Generator_ColumnPropNameInTable="insuranceColumn" msprop:Generator_UserColumnName="insurance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="school_activities" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnschool_activities" msprop:Generator_ColumnPropNameInRow="school_activities" msprop:Generator_ColumnPropNameInTable="school_activitiesColumn" msprop:Generator_UserColumnName="school_activities" type="xs:decimal" minOccurs="0" />
+              <xs:element name="computer" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columncomputer" msprop:Generator_ColumnPropNameInRow="computer" msprop:Generator_ColumnPropNameInTable="computerColumn" msprop:Generator_UserColumnName="computer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="local_exam" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnlocal_exam" msprop:Generator_ColumnPropNameInRow="local_exam" msprop:Generator_ColumnPropNameInTable="local_examColumn" msprop:Generator_UserColumnName="local_exam" type="xs:decimal" minOccurs="0" />
+              <xs:element name="late_fees" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnlate_fees" msprop:Generator_ColumnPropNameInRow="late_fees" msprop:Generator_ColumnPropNameInTable="late_feesColumn" msprop:Generator_UserColumnName="late_fees" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntotal" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_UserColumnName="total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="terminal" msprop:Generator_ColumnVarNameInTable="columnterminal" msprop:Generator_ColumnPropNameInRow="terminal" msprop:Generator_ColumnPropNameInTable="terminalColumn" msprop:Generator_UserColumnName="terminal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cheque" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columncheque" msprop:Generator_ColumnPropNameInRow="cheque" msprop:Generator_ColumnPropNameInTable="chequeColumn" msprop:Generator_UserColumnName="cheque" type="xs:decimal" minOccurs="0" />
+              <xs:element name="class" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnclass" msprop:Generator_ColumnPropNameInRow="_class" msprop:Generator_ColumnPropNameInTable="classColumn" msprop:Generator_UserColumnName="class" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="term1sum" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm1sum" msprop:Generator_ColumnPropNameInRow="term1sum" msprop:Generator_ColumnPropNameInTable="term1sumColumn" msprop:Generator_UserColumnName="term1sum" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term2sum" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm2sum" msprop:Generator_ColumnPropNameInRow="term2sum" msprop:Generator_ColumnPropNameInTable="term2sumColumn" msprop:Generator_UserColumnName="term2sum" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term3sum" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm3sum" msprop:Generator_ColumnPropNameInRow="term3sum" msprop:Generator_ColumnPropNameInTable="term3sumColumn" msprop:Generator_UserColumnName="term3sum" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term4sum" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm4sum" msprop:Generator_ColumnPropNameInRow="term4sum" msprop:Generator_ColumnPropNameInTable="term4sumColumn" msprop:Generator_UserColumnName="term4sum" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term5sum" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm5sum" msprop:Generator_ColumnPropNameInRow="term5sum" msprop:Generator_ColumnPropNameInTable="term5sumColumn" msprop:Generator_UserColumnName="term5sum" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term1chq" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm1chq" msprop:Generator_ColumnPropNameInRow="term1chq" msprop:Generator_ColumnPropNameInTable="term1chqColumn" msprop:Generator_UserColumnName="term1chq" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term2chq" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm2chq" msprop:Generator_ColumnPropNameInRow="term2chq" msprop:Generator_ColumnPropNameInTable="term2chqColumn" msprop:Generator_UserColumnName="term2chq" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term3chq" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm3chq" msprop:Generator_ColumnPropNameInRow="term3chq" msprop:Generator_ColumnPropNameInTable="term3chqColumn" msprop:Generator_UserColumnName="term3chq" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term4chq" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm4chq" msprop:Generator_ColumnPropNameInRow="term4chq" msprop:Generator_ColumnPropNameInTable="term4chqColumn" msprop:Generator_UserColumnName="term4chq" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term5chq" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm5chq" msprop:Generator_ColumnPropNameInRow="term5chq" msprop:Generator_ColumnPropNameInTable="term5chqColumn" msprop:Generator_UserColumnName="term5chq" type="xs:decimal" minOccurs="0" />
+              <xs:element name="term1Name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm1Name" msprop:Generator_ColumnPropNameInRow="term1Name" msprop:Generator_ColumnPropNameInTable="term1NameColumn" msprop:Generator_UserColumnName="term1Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="term2Name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm2Name" msprop:Generator_ColumnPropNameInRow="term2Name" msprop:Generator_ColumnPropNameInTable="term2NameColumn" msprop:Generator_UserColumnName="term2Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="term3Name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm3Name" msprop:Generator_ColumnPropNameInRow="term3Name" msprop:Generator_ColumnPropNameInTable="term3NameColumn" msprop:Generator_UserColumnName="term3Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="term4Name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm4Name" msprop:Generator_ColumnPropNameInRow="term4Name" msprop:Generator_ColumnPropNameInTable="term4NameColumn" msprop:Generator_UserColumnName="term4Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="term5Name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnterm5Name" msprop:Generator_ColumnPropNameInRow="term5Name" msprop:Generator_ColumnPropNameInTable="term5NameColumn" msprop:Generator_UserColumnName="term5Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="student_id" msprop:Generator_ColumnVarNameInTable="columnstudent_id" msprop:Generator_ColumnPropNameInRow="student_id" msprop:Generator_ColumnPropNameInTable="student_idColumn" msprop:Generator_UserColumnName="student_id">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="session" msprop:Generator_ColumnVarNameInTable="columnsession" msprop:Generator_ColumnPropNameInRow="session" msprop:Generator_ColumnPropNameInTable="sessionColumn" msprop:Generator_UserColumnName="session">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,763 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{21396D3D-05ED-48AF-B35D-2D39734F250E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JEMS_Fees_Management_System</RootNamespace>
+    <AssemblyName>JEMS Fees Management System</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnnualConcessionDataSet.cs">
+      <DependentUpon>AnnualConcessionDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AnnualConcessionDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AnnualConcessionDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AnnualConcessionReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnnualConcessionReportForm.Designer.cs">
+      <DependentUpon>AnnualConcessionReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BackupSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackupSettings.Designer.cs">
+      <DependentUpon>BackupSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClearanceReportDataSet.cs">
+      <DependentUpon>ClearanceReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ClearanceReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClearanceReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ClearanceReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClearanceReportForm.Designer.cs">
+      <DependentUpon>ClearanceReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteStudent.Designer.cs">
+      <DependentUpon>DeleteStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonthlyConcessionReportDataSet.cs">
+      <DependentUpon>MonthlyConcessionReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MonthlyConcessionReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MonthlyConcessionReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MonthlyConcessionReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonthlyConcessionReportForm.Designer.cs">
+      <DependentUpon>MonthlyConcessionReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DuesListAnnualDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DuesListAnnualDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DuesListMonthly.cs">
+      <DependentUpon>DuesListMonthly.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DuesListMonthly.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DuesListMonthly.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DuesListAnnualReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DuesListAnnualReport.Designer.cs">
+      <DependentUpon>DuesListAnnualReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DuesListMonthlyReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DuesListMonthlyReport.Designer.cs">
+      <DependentUpon>DuesListMonthlyReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditStudentDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditStudentDetails.Designer.cs">
+      <DependentUpon>EditStudentDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OtherFeesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OtherFeesDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OtherFeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OtherFeesForm.Designer.cs">
+      <DependentUpon>OtherFeesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OtherFeesReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OtherFeesReportForm.Designer.cs">
+      <DependentUpon>OtherFeesReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PaidListMonthlyDataSet.cs">
+      <DependentUpon>PaidListMonthlyDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PaidListMonthlyDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PaidListMonthlyDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PaidListMonthlyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PaidListMonthlyForm.Designer.cs">
+      <DependentUpon>PaidListMonthlyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordBox.Designer.cs">
+      <DependentUpon>PasswordBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PeriodicManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PeriodicManagementForm.Designer.cs">
+      <DependentUpon>PeriodicManagementForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PeriodicMonthlyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PeriodicMonthlyForm.Designer.cs">
+      <DependentUpon>PeriodicMonthlyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ProvisionalReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProvisionalReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ProvStudentReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProvStudentReportForm.Designer.cs">
+      <DependentUpon>ProvStudentReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiptDateChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReceiptDateChange.Designer.cs">
+      <DependentUpon>ReceiptDateChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReceiptForm.Designer.cs">
+      <DependentUpon>ReceiptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClearanceSlipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClearanceSlipForm.Designer.cs">
+      <DependentUpon>ClearanceSlipForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReminderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReminderForm.Designer.cs">
+      <DependentUpon>ReminderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RunSqlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RunSqlForm.Designer.cs">
+      <DependentUpon>RunSqlForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SessionChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SessionChange.Designer.cs">
+      <DependentUpon>SessionChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="SMSHandler.cs" />
+    <Compile Include="StudentChangeClass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentChangeClass.Designer.cs">
+      <DependentUpon>StudentChangeClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentEditAnnualFeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentEditAnnualFeesForm.Designer.cs">
+      <DependentUpon>StudentEditAnnualFeesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnnualFeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnnualFeesForm.Designer.cs">
+      <DependentUpon>AnnualFeesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseFeesStructureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseFeesStructureForm.Designer.cs">
+      <DependentUpon>BaseFeesStructureForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DailyMonthlyFeesDataSet.cs">
+      <DependentUpon>DailyMonthlyFeesDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DailyMonthlyFeesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DailyMonthlyFeesDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DailyMonthlyFeesReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DailyMonthlyFeesReport.Designer.cs">
+      <DependentUpon>DailyMonthlyFeesReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DailyReportMngForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DailyReportMngForm.Designer.cs">
+      <DependentUpon>DailyReportMngForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DailyMngFeesDataSet.cs">
+      <DependentUpon>DailyMngFeesDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DailyMngFeesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DailyMngFeesDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalVariables.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentEditMonthlyFeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentEditMonthlyFeesForm.Designer.cs">
+      <DependentUpon>StudentEditMonthlyFeesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonthlyFeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonthlyFeesForm.Designer.cs">
+      <DependentUpon>MonthlyFeesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProvisionalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProvisionalForm.Designer.cs">
+      <DependentUpon>ProvisionalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProvisionConfirmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProvisionConfirmForm.Designer.cs">
+      <DependentUpon>ProvisionConfirmForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManualStudentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManualStudentForm.Designer.cs">
+      <DependentUpon>ManualStudentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegularAdmissionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegularAdmissionForm.Designer.cs">
+      <DependentUpon>RegularAdmissionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SessionConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SessionConfig.Designer.cs">
+      <DependentUpon>SessionConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setup.Designer.cs">
+      <DependentUpon>Setup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentFeesCard.cs">
+      <DependentUpon>StudentFeesCard.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="StudentFeesCardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentFeesCardForm.Designer.cs">
+      <DependentUpon>StudentFeesCardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentFeesCard1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentFeesCard.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="StudentReport2DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentReport2DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="StudentReport2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentReport2Form.Designer.cs">
+      <DependentUpon>StudentReport2Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentReportForm.Designer.cs">
+      <DependentUpon>StudentReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentReportDataSet.cs">
+      <DependentUpon>StudentReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="StudentReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TCForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TCForm.Designer.cs">
+      <DependentUpon>TCForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TCReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TCReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TCReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TCReportForm.Designer.cs">
+      <DependentUpon>TCReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WarnFeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WarnFeesForm.Designer.cs">
+      <DependentUpon>WarnFeesForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AnnualConcessionReportForm.resx">
+      <DependentUpon>AnnualConcessionReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BackupSettings.resx">
+      <DependentUpon>BackupSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseFeesStructureForm.resx">
+      <DependentUpon>BaseFeesStructureForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClearanceReportForm.resx">
+      <DependentUpon>ClearanceReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteStudent.resx">
+      <DependentUpon>DeleteStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthlyConcessionReportForm.resx">
+      <DependentUpon>MonthlyConcessionReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PaidListMonthlyForm.resx">
+      <DependentUpon>PaidListMonthlyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PaidListMonthlyReport.rdlc" />
+    <EmbeddedResource Include="PasswordBox.resx">
+      <DependentUpon>PasswordBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeriodicMonthlyFeesReport.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeriodicManagementReport.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeriodicManagementForm.resx">
+      <DependentUpon>PeriodicManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DuesListAnnualReport.resx">
+      <DependentUpon>DuesListAnnualReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DuesListMonthlyReport.resx">
+      <DependentUpon>DuesListMonthlyReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditStudentDetails.resx">
+      <DependentUpon>EditStudentDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DuesListMonthlyReport.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DuesListAnnualReport.rdlc" />
+    <EmbeddedResource Include="OtherFeesForm.resx">
+      <DependentUpon>OtherFeesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OtherFeesReportForm.resx">
+      <DependentUpon>OtherFeesReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeriodicMonthlyForm.resx">
+      <DependentUpon>PeriodicMonthlyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProvStudentReportForm.resx">
+      <DependentUpon>ProvStudentReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceiptDateChange.resx">
+      <DependentUpon>ReceiptDateChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceiptForm.resx">
+      <DependentUpon>ReceiptForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OtherFeesReport.rdlc" />
+    <EmbeddedResource Include="ProvStudentReport.rdlc" />
+    <EmbeddedResource Include="MonthlyConcessionReport.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnnualConcessionReport.rdlc" />
+    <EmbeddedResource Include="ClearanceReport.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClearanceSlipForm.resx">
+      <DependentUpon>ClearanceSlipForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReminderForm.resx">
+      <DependentUpon>ReminderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentReport2.rdlc" />
+    <EmbeddedResource Include="RunSqlForm.resx">
+      <DependentUpon>RunSqlForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentReport2Form.resx">
+      <DependentUpon>StudentReport2Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TCReport.rdlc" />
+    <EmbeddedResource Include="StudentsReport.rdlc" />
+    <EmbeddedResource Include="SessionChange.resx">
+      <DependentUpon>SessionChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SessionConfig.resx">
+      <DependentUpon>SessionConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentChangeClass.resx">
+      <DependentUpon>StudentChangeClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentFeesCardReport.rdlc" />
+    <EmbeddedResource Include="StudentEditAnnualFeesForm.resx">
+      <DependentUpon>StudentEditAnnualFeesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnnualFeesForm.resx">
+      <DependentUpon>AnnualFeesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DailyMonthlyFeesReport.resx">
+      <DependentUpon>DailyMonthlyFeesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DailyReportMngForm.resx">
+      <DependentUpon>DailyReportMngForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentEditMonthlyFeesForm.resx">
+      <DependentUpon>StudentEditMonthlyFeesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthlyFeesForm.resx">
+      <DependentUpon>MonthlyFeesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProvisionalForm.resx">
+      <DependentUpon>ProvisionalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProvisionConfirmForm.resx">
+      <DependentUpon>ProvisionConfirmForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManualStudentForm.resx">
+      <DependentUpon>ManualStudentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegularAdmissionForm.resx">
+      <DependentUpon>RegularAdmissionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DailyManagementReport.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DailyMonthlyFeesReport.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setup.resx">
+      <DependentUpon>Setup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentFeesCardForm.resx">
+      <DependentUpon>StudentFeesCardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentReportForm.resx">
+      <DependentUpon>StudentReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TCForm.resx">
+      <DependentUpon>TCForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TCReportForm.resx">
+      <DependentUpon>TCReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="AnnualConcessionDataSet.xsc">
+      <DependentUpon>AnnualConcessionDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AnnualConcessionDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AnnualConcessionDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="AnnualConcessionDataSet.xss">
+      <DependentUpon>AnnualConcessionDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClearanceReportDataSet.xsc">
+      <DependentUpon>ClearanceReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ClearanceReportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ClearanceReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ClearanceReportDataSet.xss">
+      <DependentUpon>ClearanceReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MonthlyConcessionReportDataSet.xsc">
+      <DependentUpon>MonthlyConcessionReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MonthlyConcessionReportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MonthlyConcessionReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="MonthlyConcessionReportDataSet.xss">
+      <DependentUpon>MonthlyConcessionReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DailyMonthlyFeesDataSet.xsc">
+      <DependentUpon>DailyMonthlyFeesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DailyMonthlyFeesDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DailyMonthlyFeesDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DailyMonthlyFeesDataSet.xss">
+      <DependentUpon>DailyMonthlyFeesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DailyMngFeesDataSet.xsc">
+      <DependentUpon>DailyMngFeesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DailyMngFeesDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DailyMngFeesDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DailyMngFeesDataSet.xss">
+      <DependentUpon>DailyMngFeesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DuesListAnnualDataSet.xsc">
+      <DependentUpon>DuesListAnnualDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DuesListAnnualDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DuesListAnnualDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DuesListAnnualDataSet.xss">
+      <DependentUpon>DuesListAnnualDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DuesListMonthly.xsc">
+      <DependentUpon>DuesListMonthly.xsd</DependentUpon>
+    </None>
+    <None Include="DuesListMonthly.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DuesListMonthly.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DuesListMonthly.xss">
+      <DependentUpon>DuesListMonthly.xsd</DependentUpon>
+    </None>
+    <None Include="OtherFeesDataSet.xsc">
+      <DependentUpon>OtherFeesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="OtherFeesDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OtherFeesDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="OtherFeesDataSet.xss">
+      <DependentUpon>OtherFeesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="PaidListMonthlyDataSet.xsc">
+      <DependentUpon>PaidListMonthlyDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="PaidListMonthlyDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PaidListMonthlyDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="PaidListMonthlyDataSet.xss">
+      <DependentUpon>PaidListMonthlyDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="ProvisionalReportDataSet.xsc">
+      <DependentUpon>ProvisionalReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ProvisionalReportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProvisionalReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ProvisionalReportDataSet.xss">
+      <DependentUpon>ProvisionalReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="StudentFeesCard.xsc">
+      <DependentUpon>StudentFeesCard.xsd</DependentUpon>
+    </None>
+    <None Include="StudentFeesCard.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StudentFeesCard1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="StudentFeesCard.xss">
+      <DependentUpon>StudentFeesCard.xsd</DependentUpon>
+    </None>
+    <None Include="StudentReport2DataSet.xsc">
+      <DependentUpon>StudentReport2DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="StudentReport2DataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StudentReport2DataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="StudentReport2DataSet.xss">
+      <DependentUpon>StudentReport2DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="StudentReportDataSet.xsc">
+      <DependentUpon>StudentReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="StudentReportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StudentReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="StudentReportDataSet.xss">
+      <DependentUpon>StudentReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TCReportDataSet.xsc">
+      <DependentUpon>TCReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TCReportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TCReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="TCReportDataSet.xss">
+      <DependentUpon>TCReportDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TextFile1.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' == ''" />
+  <PropertyGroup>
+    <SsdtUnitTestVersion>2.0</SsdtUnitTestVersion>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

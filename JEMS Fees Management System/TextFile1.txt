@@ -1,0 +1,4 @@
+﻿Change log:
+
+
+v2.1.2: In "MainForm" inside function "executeLateFeesCalculations" Updated "currBeforeMonth" string from "MAY" to "APR"

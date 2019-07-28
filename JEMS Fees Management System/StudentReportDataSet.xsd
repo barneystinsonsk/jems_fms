@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="StudentReportDataSet" targetNamespace="http://tempuri.org/StudentReportDataSet.xsd" xmlns:mstns="http://tempuri.org/StudentReportDataSet.xsd" xmlns="http://tempuri.org/StudentReportDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.JEMS_Fees_Management_System.Properties.Settings.GlobalReference.Default.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="student_detailsTableAdapter" GeneratorDataComponentClassName="student_detailsTableAdapter" Name="student_details" UserDataComponentName="student_detailsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectName="jems_database_session_change.dbo.student_details" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText> select 
+student_id, first_name, middle_name, last_name, father_name, category,
+adhar_card, samagra_id,
+case
+ when gender = 0 then 'Female'
+ when gender = 1 then 'Male'
+end as the_gender, student_category, class, dob, 
+
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session &lt;&gt; current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'SC' and gender = 1
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as old_b_sc, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session &lt;&gt; current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'ST' and gender = 1
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as old_b_st, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session &lt;&gt; current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'OBC' and gender = 1
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as old_b_obc, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session &lt;&gt; current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'GEN' and gender = 1
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as old_b_gen,
+
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session &lt;&gt; current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'SC' and gender = 0
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as old_g_sc, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session &lt;&gt; current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'ST' and gender = 0
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as old_g_st, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session &lt;&gt; current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'OBC' and gender = 0
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as old_g_obc, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session &lt;&gt; current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'GEN' and gender = 0
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as old_g_gen,
+
+
+
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session = current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'SC' and gender = 1
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as new_b_sc, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session = current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'ST' and gender = 1
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as new_b_st, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session = current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'OBC' and gender = 1
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as new_b_obc, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session = current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'GEN' and gender = 1
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as new_b_gen,
+
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session = current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'SC' and gender = 0
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as new_g_sc, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session = current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'ST' and gender = 0
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as new_g_st, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session = current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'OBC' and gender = 0
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as new_g_obc, 
+(select count(*) from student_details where current_session like @session and (class = @Class1 or class = @Class2) and admission_session = current_session and student_id not like 'PV' 
+		and student_category &lt;&gt; 'EXX' and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) and current_session is not null and category = 'GEN' and gender = 0
+		and (student_details.section = @sect1 or
+		student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+		student_details.section = @sect5)) as new_g_gen
+ from student_details
+where student_id not like 'PV' and student_category &lt;&gt; 'EXX'
+and current_session like @session and (class = @Class1 or class = @Class2) 
+	and (student_details.section = @sect1 or
+	student_details.section = @sect2 or student_details.section = @sect3 or student_details.section = @sect4 or
+	student_details.section = @sect5)
+	and (student_category = @cat1 or student_category = @cat2 or student_category = @cat3 or student_category = @cat4) </CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="session" ColumnName="current_session" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="numeric(4, 0)" DbType="String" Direction="Input" ParameterName="@session" Precision="4" ProviderType="NVarChar" Scale="0" Size="5" SourceColumn="current_session" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Class1" ColumnName="class" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(3)" DbType="String" Direction="Input" ParameterName="@Class1" Precision="0" ProviderType="NChar" Scale="0" Size="3" SourceColumn="class" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Class2" ColumnName="class" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(3)" DbType="String" Direction="Input" ParameterName="@Class2" Precision="0" ProviderType="NChar" Scale="0" Size="3" SourceColumn="class" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="sect1" ColumnName="section" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(1)" DbType="String" Direction="Input" ParameterName="@sect1" Precision="0" ProviderType="NChar" Scale="0" Size="1" SourceColumn="section" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="sect2" ColumnName="section" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(1)" DbType="String" Direction="Input" ParameterName="@sect2" Precision="0" ProviderType="NChar" Scale="0" Size="1" SourceColumn="section" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="sect3" ColumnName="section" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(1)" DbType="String" Direction="Input" ParameterName="@sect3" Precision="0" ProviderType="NChar" Scale="0" Size="1" SourceColumn="section" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="sect4" ColumnName="section" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(1)" DbType="String" Direction="Input" ParameterName="@sect4" Precision="0" ProviderType="NChar" Scale="0" Size="1" SourceColumn="section" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="sect5" ColumnName="section" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(1)" DbType="String" Direction="Input" ParameterName="@sect5" Precision="0" ProviderType="NChar" Scale="0" Size="1" SourceColumn="section" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="cat1" ColumnName="student_category" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(3)" DbType="String" Direction="Input" ParameterName="@cat1" Precision="0" ProviderType="NChar" Scale="0" Size="3" SourceColumn="student_category" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="cat2" ColumnName="student_category" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(3)" DbType="String" Direction="Input" ParameterName="@cat2" Precision="0" ProviderType="NChar" Scale="0" Size="3" SourceColumn="student_category" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="cat3" ColumnName="student_category" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(3)" DbType="String" Direction="Input" ParameterName="@cat3" Precision="0" ProviderType="NChar" Scale="0" Size="3" SourceColumn="student_category" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="cat4" ColumnName="student_category" DataSourceName="jems_database_session_change.dbo.student_details" DataTypeServer="nchar(3)" DbType="String" Direction="Input" ParameterName="@cat4" Precision="0" ProviderType="NChar" Scale="0" Size="3" SourceColumn="student_category" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="student_id" DataSetColumn="student_id" />
+              <Mapping SourceColumn="first_name" DataSetColumn="first_name" />
+              <Mapping SourceColumn="middle_name" DataSetColumn="middle_name" />
+              <Mapping SourceColumn="last_name" DataSetColumn="last_name" />
+              <Mapping SourceColumn="father_name" DataSetColumn="father_name" />
+              <Mapping SourceColumn="category" DataSetColumn="category" />
+              <Mapping SourceColumn="student_category" DataSetColumn="student_category" />
+              <Mapping SourceColumn="class" DataSetColumn="class" />
+              <Mapping SourceColumn="dob" DataSetColumn="dob" />
+              <Mapping SourceColumn="the_gender" DataSetColumn="the_gender" />
+              <Mapping SourceColumn="samagra_id" DataSetColumn="samagra_id" />
+              <Mapping SourceColumn="ad_card" DataSetColumn="ad_card" />
+              <Mapping SourceColumn="adhar_card" DataSetColumn="adhar_card" />
+              <Mapping SourceColumn="old_b_sc" DataSetColumn="old_b_sc" />
+              <Mapping SourceColumn="old_b_st" DataSetColumn="old_b_st" />
+              <Mapping SourceColumn="old_b_obc" DataSetColumn="old_b_obc" />
+              <Mapping SourceColumn="old_b_gen" DataSetColumn="old_b_gen" />
+              <Mapping SourceColumn="old_g_sc" DataSetColumn="old_g_sc" />
+              <Mapping SourceColumn="old_g_st" DataSetColumn="old_g_st" />
+              <Mapping SourceColumn="old_g_obc" DataSetColumn="old_g_obc" />
+              <Mapping SourceColumn="old_g_gen" DataSetColumn="old_g_gen" />
+              <Mapping SourceColumn="new_b_sc" DataSetColumn="new_b_sc" />
+              <Mapping SourceColumn="new_b_st" DataSetColumn="new_b_st" />
+              <Mapping SourceColumn="new_b_obc" DataSetColumn="new_b_obc" />
+              <Mapping SourceColumn="new_b_gen" DataSetColumn="new_b_gen" />
+              <Mapping SourceColumn="new_g_sc" DataSetColumn="new_g_sc" />
+              <Mapping SourceColumn="new_g_st" DataSetColumn="new_g_st" />
+              <Mapping SourceColumn="new_g_obc" DataSetColumn="new_g_obc" />
+              <Mapping SourceColumn="new_g_gen" DataSetColumn="new_g_gen" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="StudentReportDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="StudentReportDataSet" msprop:Generator_UserDSName="StudentReportDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="student_details" msprop:Generator_TableClassName="student_detailsDataTable" msprop:Generator_TableVarName="tablestudent_details" msprop:Generator_TablePropName="student_details" msprop:Generator_RowDeletingName="student_detailsRowDeleting" msprop:Generator_RowChangingName="student_detailsRowChanging" msprop:Generator_RowEvHandlerName="student_detailsRowChangeEventHandler" msprop:Generator_RowDeletedName="student_detailsRowDeleted" msprop:Generator_UserTableName="student_details" msprop:Generator_RowChangedName="student_detailsRowChanged" msprop:Generator_RowEvArgName="student_detailsRowChangeEvent" msprop:Generator_RowClassName="student_detailsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="student_id" msprop:Generator_ColumnVarNameInTable="columnstudent_id" msprop:Generator_ColumnPropNameInRow="student_id" msprop:Generator_ColumnPropNameInTable="student_idColumn" msprop:Generator_UserColumnName="student_id">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="first_name" msprop:Generator_ColumnVarNameInTable="columnfirst_name" msprop:Generator_ColumnPropNameInRow="first_name" msprop:Generator_ColumnPropNameInTable="first_nameColumn" msprop:Generator_UserColumnName="first_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="middle_name" msprop:Generator_ColumnVarNameInTable="columnmiddle_name" msprop:Generator_ColumnPropNameInRow="middle_name" msprop:Generator_ColumnPropNameInTable="middle_nameColumn" msprop:Generator_UserColumnName="middle_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="last_name" msprop:Generator_ColumnVarNameInTable="columnlast_name" msprop:Generator_ColumnPropNameInRow="last_name" msprop:Generator_ColumnPropNameInTable="last_nameColumn" msprop:Generator_UserColumnName="last_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="father_name" msprop:Generator_ColumnVarNameInTable="columnfather_name" msprop:Generator_ColumnPropNameInRow="father_name" msprop:Generator_ColumnPropNameInTable="father_nameColumn" msprop:Generator_UserColumnName="father_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="category" msprop:Generator_ColumnVarNameInTable="columncategory" msprop:Generator_ColumnPropNameInRow="category" msprop:Generator_ColumnPropNameInTable="categoryColumn" msprop:Generator_UserColumnName="category" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="student_category" msprop:Generator_ColumnVarNameInTable="columnstudent_category" msprop:Generator_ColumnPropNameInRow="student_category" msprop:Generator_ColumnPropNameInTable="student_categoryColumn" msprop:Generator_UserColumnName="student_category">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="class" msprop:Generator_ColumnVarNameInTable="columnclass" msprop:Generator_ColumnPropNameInRow="_class" msprop:Generator_ColumnPropNameInTable="classColumn" msprop:Generator_UserColumnName="class">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="dob" msprop:Generator_ColumnVarNameInTable="columndob" msprop:Generator_ColumnPropNameInRow="dob" msprop:Generator_ColumnPropNameInTable="dobColumn" msprop:Generator_UserColumnName="dob" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="the_gender" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnthe_gender" msprop:Generator_ColumnPropNameInRow="the_gender" msprop:Generator_ColumnPropNameInTable="the_genderColumn" msprop:Generator_UserColumnName="the_gender" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="samagra_id" msprop:Generator_ColumnVarNameInTable="columnsamagra_id" msprop:Generator_ColumnPropNameInRow="samagra_id" msprop:Generator_ColumnPropNameInTable="samagra_idColumn" msprop:Generator_UserColumnName="samagra_id" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adhar_card" msprop:Generator_ColumnVarNameInTable="columnadhar_card" msprop:Generator_ColumnPropNameInRow="adhar_card" msprop:Generator_ColumnPropNameInTable="adhar_cardColumn" msprop:Generator_UserColumnName="adhar_card" type="xs:decimal" minOccurs="0" />
+              <xs:element name="old_b_sc" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnold_b_sc" msprop:Generator_ColumnPropNameInRow="old_b_sc" msprop:Generator_ColumnPropNameInTable="old_b_scColumn" msprop:Generator_UserColumnName="old_b_sc" type="xs:int" minOccurs="0" />
+              <xs:element name="old_b_st" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnold_b_st" msprop:Generator_ColumnPropNameInRow="old_b_st" msprop:Generator_ColumnPropNameInTable="old_b_stColumn" msprop:Generator_UserColumnName="old_b_st" type="xs:int" minOccurs="0" />
+              <xs:element name="old_b_obc" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnold_b_obc" msprop:Generator_ColumnPropNameInRow="old_b_obc" msprop:Generator_ColumnPropNameInTable="old_b_obcColumn" msprop:Generator_UserColumnName="old_b_obc" type="xs:int" minOccurs="0" />
+              <xs:element name="old_b_gen" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnold_b_gen" msprop:Generator_ColumnPropNameInRow="old_b_gen" msprop:Generator_ColumnPropNameInTable="old_b_genColumn" msprop:Generator_UserColumnName="old_b_gen" type="xs:int" minOccurs="0" />
+              <xs:element name="old_g_sc" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnold_g_sc" msprop:Generator_ColumnPropNameInRow="old_g_sc" msprop:Generator_ColumnPropNameInTable="old_g_scColumn" msprop:Generator_UserColumnName="old_g_sc" type="xs:int" minOccurs="0" />
+              <xs:element name="old_g_st" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnold_g_st" msprop:Generator_ColumnPropNameInRow="old_g_st" msprop:Generator_ColumnPropNameInTable="old_g_stColumn" msprop:Generator_UserColumnName="old_g_st" type="xs:int" minOccurs="0" />
+              <xs:element name="old_g_obc" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnold_g_obc" msprop:Generator_ColumnPropNameInRow="old_g_obc" msprop:Generator_ColumnPropNameInTable="old_g_obcColumn" msprop:Generator_UserColumnName="old_g_obc" type="xs:int" minOccurs="0" />
+              <xs:element name="old_g_gen" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnold_g_gen" msprop:Generator_ColumnPropNameInRow="old_g_gen" msprop:Generator_ColumnPropNameInTable="old_g_genColumn" msprop:Generator_UserColumnName="old_g_gen" type="xs:int" minOccurs="0" />
+              <xs:element name="new_b_sc" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnew_b_sc" msprop:Generator_ColumnPropNameInRow="new_b_sc" msprop:Generator_ColumnPropNameInTable="new_b_scColumn" msprop:Generator_UserColumnName="new_b_sc" type="xs:int" minOccurs="0" />
+              <xs:element name="new_b_st" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnew_b_st" msprop:Generator_ColumnPropNameInRow="new_b_st" msprop:Generator_ColumnPropNameInTable="new_b_stColumn" msprop:Generator_UserColumnName="new_b_st" type="xs:int" minOccurs="0" />
+              <xs:element name="new_b_obc" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnew_b_obc" msprop:Generator_ColumnPropNameInRow="new_b_obc" msprop:Generator_ColumnPropNameInTable="new_b_obcColumn" msprop:Generator_UserColumnName="new_b_obc" type="xs:int" minOccurs="0" />
+              <xs:element name="new_b_gen" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnew_b_gen" msprop:Generator_ColumnPropNameInRow="new_b_gen" msprop:Generator_ColumnPropNameInTable="new_b_genColumn" msprop:Generator_UserColumnName="new_b_gen" type="xs:int" minOccurs="0" />
+              <xs:element name="new_g_sc" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnew_g_sc" msprop:Generator_ColumnPropNameInRow="new_g_sc" msprop:Generator_ColumnPropNameInTable="new_g_scColumn" msprop:Generator_UserColumnName="new_g_sc" type="xs:int" minOccurs="0" />
+              <xs:element name="new_g_st" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnew_g_st" msprop:Generator_ColumnPropNameInRow="new_g_st" msprop:Generator_ColumnPropNameInTable="new_g_stColumn" msprop:Generator_UserColumnName="new_g_st" type="xs:int" minOccurs="0" />
+              <xs:element name="new_g_obc" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnew_g_obc" msprop:Generator_ColumnPropNameInRow="new_g_obc" msprop:Generator_ColumnPropNameInTable="new_g_obcColumn" msprop:Generator_UserColumnName="new_g_obc" type="xs:int" minOccurs="0" />
+              <xs:element name="new_g_gen" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnew_g_gen" msprop:Generator_ColumnPropNameInRow="new_g_gen" msprop:Generator_ColumnPropNameInTable="new_g_genColumn" msprop:Generator_UserColumnName="new_g_gen" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:student_details" />
+      <xs:field xpath="mstns:student_id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

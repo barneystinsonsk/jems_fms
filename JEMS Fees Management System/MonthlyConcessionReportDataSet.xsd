@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MonthlyConcessionReportDataSet" targetNamespace="http://tempuri.org/MonthlyConcessionReportDataSet.xsd" xmlns:mstns="http://tempuri.org/MonthlyConcessionReportDataSet.xsd" xmlns="http://tempuri.org/MonthlyConcessionReportDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.JEMS_Fees_Management_System.Properties.Settings.GlobalReference.Default.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>with Sub as
+(select student_monthly_fees.student_id, student_monthly_fees.session, /*student_monthly_fees.month, */
+		student_monthly_fees.class
+      ,(monthly_base_struct.tuition - student_monthly_fees.tuition) as ttn
+      ,(monthly_base_struct.management - student_monthly_fees.management) as mng
+      ,(monthly_base_struct.smart_class - student_monthly_fees.smart_class) as sm_clss
+      ,(monthly_base_struct.report_diary - student_monthly_fees.report_diary) as rprt
+      ,(monthly_base_struct.sports - student_monthly_fees.sports) as sprt
+      ,(monthly_base_struct.science - student_monthly_fees.science) as scn
+      ,(monthly_base_struct.red_cross - student_monthly_fees.red_cross) as rd_crs
+      ,(monthly_base_struct.guide - student_monthly_fees.guide) as gd
+      ,(monthly_base_struct.insurance - student_monthly_fees.insurance) as ins
+      ,(monthly_base_struct.school_activities - student_monthly_fees.school_activities) as act
+      ,(monthly_base_struct.computer - student_monthly_fees.computer) as cmp
+      ,(monthly_base_struct.local_exam - student_monthly_fees.local_exam) as lcl
+	  
+from student_monthly_fees join monthly_base_struct on 
+student_monthly_fees.session = monthly_base_struct.session and 
+student_monthly_fees.month = monthly_base_struct.month and 
+student_monthly_fees.class = monthly_base_struct.class where concession = 1 and
+student_monthly_fees.session like @session
+),
+
+Main as
+(select student_id, session, sum(ttn) as ttn,sum(mng) as mng, sum(sm_clss) as sm_clss, sum(rprt) as rprt, 
+sum(sprt) as sprt, sum(scn) as scn, sum(rd_crs) as rd_crs, sum(gd) as gd, sum(ins) as ins, sum(act) as act,
+sum(cmp) as cmp, sum(lcl) as lcl
+from Sub
+where 
+ttn &gt;= 0 and
+mng &gt;= 0 and
+sm_clss &gt;= 0 and
+rprt &gt;= 0 and
+sprt &gt;= 0 and
+scn &gt;= 0 and
+rd_crs &gt;= 0 and
+gd &gt;= 0 and
+ins &gt;= 0 and
+act &gt;= 0 and
+cmp &gt;= 0 and
+lcl &gt;= 0 and
+(ttn + 
+mng +
+sm_clss +
+rprt +
+sprt +
+scn +
+rd_crs +
+gd +
+ins +
+act +
+cmp +
+lcl) &gt; 0
+
+group by Sub.student_id, Sub.session, Sub.class
+)
+
+select Main.student_id, first_name, middle_name, last_name,
+case
+	when class in ('NUR') then 'NUR'
+	when class in ('KG1') then 'KG 1'
+	when class in ('KG2') then 'KG 2'
+	when class in ('001') then 'I'
+	when class in ('002') then 'II'
+	when class in ('003') then 'III'
+	when class in ('004') then 'IV'
+	when class in ('005') then 'V'
+	when class in ('006') then 'VI'
+	when class in ('007') then 'VII'
+	when class in ('008') then 'VIII'
+	when class in ('009') then 'IX'
+	when class in ('010') then 'X'
+	when class in ('C1P') then 'XI COM'	
+	when class in ('C1I') then 'XI IP'
+	when class in ('S11') then 'XI SC'
+	when class in ('C2P') then 'XII COM'	
+	when class in ('C2I') then 'XII IP'
+	when class in ('S12') then 'XII SC'
+end
+as theClass
+ , ttn, mng, sm_clss, rprt, sprt, scn, rd_crs, gd, ins, act, cmp, lcl from 
+Main join student_details on Main.student_id = student_details.student_id
+
+order by
+(
+case 
+	when class in ('NUR') then 1
+	when class in ('KG1') then 2
+	when class in ('KG2') then 3
+	when class in ('001') then 4
+	when class in ('002') then 5
+	when class in ('003') then 6
+	when class in ('004') then 7
+	when class in ('005') then 8
+	when class in ('006') then 9
+	when class in ('007') then 10
+	when class in ('008') then 11
+	when class in ('009') then 12
+	when class in ('010') then 13
+	when class in ('C1P') then 14
+	when class in ('C1I') then 15
+	when class in ('S11') then 16
+	when class in ('C2P') then 17
+	when class in ('C2I') then 18
+	when class in ('S12') then 19
+end
+);</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="session" ColumnName="" DataSourceName="" DataTypeServer="nchar(4)" DbType="String" Direction="Input" ParameterName="@session" Precision="0" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="student_id" DataSetColumn="student_id" />
+              <Mapping SourceColumn="first_name" DataSetColumn="first_name" />
+              <Mapping SourceColumn="middle_name" DataSetColumn="middle_name" />
+              <Mapping SourceColumn="last_name" DataSetColumn="last_name" />
+              <Mapping SourceColumn="ttn" DataSetColumn="ttn" />
+              <Mapping SourceColumn="mng" DataSetColumn="mng" />
+              <Mapping SourceColumn="sm_clss" DataSetColumn="sm_clss" />
+              <Mapping SourceColumn="rprt" DataSetColumn="rprt" />
+              <Mapping SourceColumn="sprt" DataSetColumn="sprt" />
+              <Mapping SourceColumn="scn" DataSetColumn="scn" />
+              <Mapping SourceColumn="rd_crs" DataSetColumn="rd_crs" />
+              <Mapping SourceColumn="gd" DataSetColumn="gd" />
+              <Mapping SourceColumn="ins" DataSetColumn="ins" />
+              <Mapping SourceColumn="act" DataSetColumn="act" />
+              <Mapping SourceColumn="cmp" DataSetColumn="cmp" />
+              <Mapping SourceColumn="lcl" DataSetColumn="lcl" />
+              <Mapping SourceColumn="theClass" DataSetColumn="theClass" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="MonthlyConcessionReportDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MonthlyConcessionReportDataSet" msprop:Generator_UserDSName="MonthlyConcessionReportDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="student_id" msprop:Generator_ColumnVarNameInTable="columnstudent_id" msprop:Generator_ColumnPropNameInRow="student_id" msprop:Generator_ColumnPropNameInTable="student_idColumn" msprop:Generator_UserColumnName="student_id">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="first_name" msprop:Generator_ColumnVarNameInTable="columnfirst_name" msprop:Generator_ColumnPropNameInRow="first_name" msprop:Generator_ColumnPropNameInTable="first_nameColumn" msprop:Generator_UserColumnName="first_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="middle_name" msprop:Generator_ColumnVarNameInTable="columnmiddle_name" msprop:Generator_ColumnPropNameInRow="middle_name" msprop:Generator_ColumnPropNameInTable="middle_nameColumn" msprop:Generator_UserColumnName="middle_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="last_name" msprop:Generator_ColumnVarNameInTable="columnlast_name" msprop:Generator_ColumnPropNameInRow="last_name" msprop:Generator_ColumnPropNameInTable="last_nameColumn" msprop:Generator_UserColumnName="last_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ttn" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnttn" msprop:Generator_ColumnPropNameInRow="ttn" msprop:Generator_ColumnPropNameInTable="ttnColumn" msprop:Generator_UserColumnName="ttn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="mng" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnmng" msprop:Generator_ColumnPropNameInRow="mng" msprop:Generator_ColumnPropNameInTable="mngColumn" msprop:Generator_UserColumnName="mng" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sm_clss" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnsm_clss" msprop:Generator_ColumnPropNameInRow="sm_clss" msprop:Generator_ColumnPropNameInTable="sm_clssColumn" msprop:Generator_UserColumnName="sm_clss" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rprt" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnrprt" msprop:Generator_ColumnPropNameInRow="rprt" msprop:Generator_ColumnPropNameInTable="rprtColumn" msprop:Generator_UserColumnName="rprt" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sprt" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnsprt" msprop:Generator_ColumnPropNameInRow="sprt" msprop:Generator_ColumnPropNameInTable="sprtColumn" msprop:Generator_UserColumnName="sprt" type="xs:decimal" minOccurs="0" />
+              <xs:element name="scn" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnscn" msprop:Generator_ColumnPropNameInRow="scn" msprop:Generator_ColumnPropNameInTable="scnColumn" msprop:Generator_UserColumnName="scn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rd_crs" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnrd_crs" msprop:Generator_ColumnPropNameInRow="rd_crs" msprop:Generator_ColumnPropNameInTable="rd_crsColumn" msprop:Generator_UserColumnName="rd_crs" type="xs:decimal" minOccurs="0" />
+              <xs:element name="gd" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columngd" msprop:Generator_ColumnPropNameInRow="gd" msprop:Generator_ColumnPropNameInTable="gdColumn" msprop:Generator_UserColumnName="gd" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ins" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnins" msprop:Generator_ColumnPropNameInRow="ins" msprop:Generator_ColumnPropNameInTable="insColumn" msprop:Generator_UserColumnName="ins" type="xs:decimal" minOccurs="0" />
+              <xs:element name="act" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnact" msprop:Generator_ColumnPropNameInRow="act" msprop:Generator_ColumnPropNameInTable="actColumn" msprop:Generator_UserColumnName="act" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cmp" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columncmp" msprop:Generator_ColumnPropNameInRow="cmp" msprop:Generator_ColumnPropNameInTable="cmpColumn" msprop:Generator_UserColumnName="cmp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lcl" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnlcl" msprop:Generator_ColumnPropNameInRow="lcl" msprop:Generator_ColumnPropNameInTable="lclColumn" msprop:Generator_UserColumnName="lcl" type="xs:decimal" minOccurs="0" />
+              <xs:element name="theClass" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntheClass" msprop:Generator_ColumnPropNameInRow="theClass" msprop:Generator_ColumnPropNameInTable="theClassColumn" msprop:Generator_UserColumnName="theClass" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="7" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DailyMngFeesDataSet" targetNamespace="http://tempuri.org/DailyMngFeesDataSet.xsd" xmlns:mstns="http://tempuri.org/DailyMngFeesDataSet.xsd" xmlns="http://tempuri.org/DailyMngFeesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.JEMS_Fees_Management_System.Properties.Settings.GlobalReference.Default.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>with Main as
+(
+/*  Regular admission*/
+(Select student_annual_fees.receipt_id as receiptID, student_annual_fees.student_id as 
+studentID, student_details.first_name as name, student_details.admission_class as class_code, student_details.admission_fees as adFees,
+student_annual_fees.school_dev as schoolDev, student_details.furniture_fund as furnFund, 
+student_annual_fees.lab_dev as labDev, student_details.caution as caution, student_details.belt_tie
+as beltTie, 0.00 as Provisional,
+(student_details.admission_fees + student_annual_fees.school_dev + 
+student_details.furniture_fund + student_annual_fees.lab_dev + student_details.caution + 
+student_details.belt_tie) as total, cheque as cheque, terminal as terminal, student_annual_fees.session,
+student_details.admission_session  from student_details right join student_annual_fees
+on student_details.student_id = student_annual_fees.student_id where student_annual_fees.date &gt;= @date1 and student_annual_fees.date &lt;= @date2 
+ and student_annual_fees.receipt_id Like 'AD%'
+and student_annual_fees.student_id not in (select provisional_map.student_id from provisional_map where 
+provisional_map.student_id is not null))
+/*no entry in prov map*/
+
+/*prov [now confirmed] from prov map*/
+union
+(select provisional_map.prov_rec_id as receiptID, provisional_map.prov_id as studentID, student_details.first_name as name, 
+ student_details.admission_class as class_code, 0.00 as adFees,
+0.00 as schoolDev, 0.00 as furnFund, 
+0.00 as labDev, 0.00 as caution, 0.00
+as beltTie, (student_details.admission_fees + student_annual_fees.school_dev + 
+student_details.furniture_fund + student_annual_fees.lab_dev + student_details.caution + 
+student_details.belt_tie) as Provisional,
+(student_details.admission_fees + student_annual_fees.school_dev + 
+student_details.furniture_fund + student_annual_fees.lab_dev + student_details.caution + 
+student_details.belt_tie) as total, cheque as cheque, terminal as terminal,
+student_annual_fees.session ,
+student_details.admission_session 
+from student_details inner join student_annual_fees on student_details.student_id = student_annual_fees.student_id
+inner join provisional_map on provisional_map.student_id = student_annual_fees.student_id where provisional_map.student_id
+ is not null and provisional_map.prov_date &gt;= @date1 and provisional_map.prov_date &lt;= @date2 
+)
+
+
+/*prov [not yet confirmed] */
+union
+(Select student_annual_fees.receipt_id as receiptID, student_annual_fees.student_id as 
+studentID, student_details.first_name as name, student_details.admission_class as class_code, 0.00 as adFees,
+0.00 as schoolDev, 0.00 as furnFund, 
+0.00 as labDev, 0.00 as caution, 0.00
+as beltTie, (student_details.admission_fees + student_annual_fees.school_dev + 
+student_details.furniture_fund + student_annual_fees.lab_dev + student_details.caution + 
+student_details.belt_tie) as Provisional,
+(student_details.admission_fees + student_annual_fees.school_dev + 
+student_details.furniture_fund + student_annual_fees.lab_dev + student_details.caution + 
+student_details.belt_tie) as total,  cheque as cheque, terminal as terminal,
+student_annual_fees.session ,
+student_details.admission_session 
+from student_details right join student_annual_fees
+on student_details.student_id = student_annual_fees.student_id where student_annual_fees.date &gt;= @date1 and student_annual_fees.date &lt;= @date2 
+  and student_annual_fees.receipt_id Like 'PR%')
+
+
+/* prov confirmation admission */
+union
+(Select student_annual_fees.receipt_id as receiptID, student_annual_fees.student_id as 
+studentID, student_details.first_name as name, student_details.admission_class as class_code, student_details.admission_fees as adFees,
+student_annual_fees.school_dev as schoolDev, student_details.furniture_fund as furnFund, 
+student_annual_fees.lab_dev as labDev, student_details.caution as caution, student_details.belt_tie
+as beltTie, (student_details.admission_fees + student_annual_fees.school_dev + 
+student_details.furniture_fund + student_annual_fees.lab_dev + student_details.caution + 
+student_details.belt_tie) * (-1) as Provisional,
+0.00 as total, 0.00 as cheque, terminal as terminal,
+student_annual_fees.session ,
+student_details.admission_session 
+from student_details right join student_annual_fees
+on student_details.student_id = student_annual_fees.student_id where student_annual_fees.date &gt;= @date1 and student_annual_fees.date &lt;= @date2 
+  and student_annual_fees.receipt_id Like 'AD%'
+and student_annual_fees.student_id in (select provisional_map.student_id from provisional_map where 
+provisional_map.student_id is not null))
+
+
+/* annual */
+union
+(select student_annual_fees.receipt_id as receiptID, student_annual_fees.student_id as studentID,
+student_details.first_name as name,student_details.class as class_code, NULL as adFees, student_annual_fees.school_dev as
+schoolDev, NULL as furnFund, student_annual_fees.lab_dev as labDev, 
+student_annual_fees.caution as caution, NULL as beltTie, 0.00 as Provisional, (student_annual_fees.school_dev +
+student_annual_fees.lab_dev + student_annual_fees.caution) as total,  cheque as cheque, terminal as terminal,
+student_annual_fees.session ,
+student_details.admission_session 
+from student_details
+right join student_annual_fees on student_details.student_id = student_annual_fees.student_id
+where student_annual_fees.date &gt;= @date1 and student_annual_fees.date &lt;= @date2 and student_annual_fees.receipt_id Like 'AN%') 
+)
+
+
+select *,
+case
+	when class_code in ('NUR') then 'NUR'
+	when class_code in ('KG1') then 'KG 1'
+	when class_code in ('KG2') then 'KG 2'
+	when class_code in ('001') then 'I'
+	when class_code in ('002') then 'II'
+	when class_code in ('003') then 'III'
+	when class_code in ('004') then 'IV'
+	when class_code in ('005') then 'V'
+	when class_code in ('006') then 'VI'
+	when class_code in ('007') then 'VII'
+	when class_code in ('008') then 'VIII'
+	when class_code in ('009') then 'IX'
+	when class_code in ('010') then 'X'
+	when class_code in ('C1P') then 'XI COM'	
+	when class_code in ('C1I') then 'XI IP'
+	when class_code in ('S11') then 'XI SC'
+	when class_code in ('C2P') then 'XII COM'	
+	when class_code in ('C2I') then 'XII IP'
+	when class_code in ('S12') then 'XII SC'
+end
+as theClass,
+case
+when terminal in (1) then total
+ else 0
+end as term1sum,
+
+case
+when terminal in (2) then total
+ else 0
+end as term2sum,
+
+case
+when terminal in (3) then total
+ else 0
+end as term3sum,
+
+case
+when terminal in (4) then total
+ else 0
+end as term4sum,
+
+case
+when terminal in (5) then total
+ else 0
+end as term5sum,
+
+case 
+when terminal in (1) then cheque
+else 0
+end as term1chq,
+case 
+when terminal in (2) then cheque
+else 0
+end as term2chq,
+case 
+when terminal in (3) then cheque
+else 0
+end as term3chq,
+case 
+when terminal in (4) then cheque
+else 0
+end as term4chq,
+case 
+when terminal in (5) then cheque
+else 0
+end as term5chq,
+(select terminal_names.name from terminal_names where terminal_names.id = 1 ) as term1Name,
+(select terminal_names.name from terminal_names where terminal_names.id = 2 ) as term2Name,
+(select terminal_names.name from terminal_names where terminal_names.id = 3 ) as term3Name,
+(select terminal_names.name from terminal_names where terminal_names.id = 4 ) as term4Name,
+(select terminal_names.name from terminal_names where terminal_names.id = 5 ) as term5Name
+from Main join student_details on Main.studentID = student_details.student_id where 
+Main.session like @session
+and 
+(
+	('NEW' = @studentType and student_details.admission_session = @currentSession)
+	or
+	('OLD' = @studentType and student_details.admission_session &lt; @currentSession)
+	or
+	('ALL' = @studentType)
+
+)
+order by receiptID;</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="date1" ColumnName="date" DataSourceName="" DataTypeServer="date" DbType="Date" Direction="Input" ParameterName="@date1" Precision="0" ProviderType="DateTime" Scale="0" Size="3" SourceColumn="date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="date2" ColumnName="date" DataSourceName="" DataTypeServer="date" DbType="Date" Direction="Input" ParameterName="@date2" Precision="0" ProviderType="DateTime" Scale="0" Size="3" SourceColumn="date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="session" ColumnName="session" DataSourceName="" DataTypeServer="nchar(4)" DbType="String" Direction="Input" ParameterName="@session" Precision="0" ProviderType="NVarChar" Scale="0" Size="4" SourceColumn="session" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@studentType" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@currentSession" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="receiptID" DataSetColumn="receiptID" />
+              <Mapping SourceColumn="studentID" DataSetColumn="studentID" />
+              <Mapping SourceColumn="name" DataSetColumn="name" />
+              <Mapping SourceColumn="adFees" DataSetColumn="adFees" />
+              <Mapping SourceColumn="schoolDev" DataSetColumn="schoolDev" />
+              <Mapping SourceColumn="furnFund" DataSetColumn="furnFund" />
+              <Mapping SourceColumn="labDev" DataSetColumn="labDev" />
+              <Mapping SourceColumn="caution" DataSetColumn="caution" />
+              <Mapping SourceColumn="beltTie" DataSetColumn="beltTie" />
+              <Mapping SourceColumn="total" DataSetColumn="total" />
+              <Mapping SourceColumn="Provisional" DataSetColumn="Provisional" />
+              <Mapping SourceColumn="class_code" DataSetColumn="class_code" />
+              <Mapping SourceColumn="cheque" DataSetColumn="cheque" />
+              <Mapping SourceColumn="terminal" DataSetColumn="terminal" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DailyMngFeesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DailyMngFeesDataSet" msprop:Generator_UserDSName="DailyMngFeesDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="receiptID" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnreceiptID" msprop:Generator_ColumnPropNameInRow="receiptID" msprop:Generator_ColumnPropNameInTable="receiptIDColumn" msprop:Generator_UserColumnName="receiptID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="studentID" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnstudentID" msprop:Generator_ColumnPropNameInRow="studentID" msprop:Generator_ColumnPropNameInTable="studentIDColumn" msprop:Generator_UserColumnName="studentID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="adFees" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnadFees" msprop:Generator_ColumnPropNameInRow="adFees" msprop:Generator_ColumnPropNameInTable="adFeesColumn" msprop:Generator_UserColumnName="adFees" type="xs:decimal" minOccurs="0" />
+              <xs:element name="schoolDev" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnschoolDev" msprop:Generator_ColumnPropNameInRow="schoolDev" msprop:Generator_ColumnPropNameInTable="schoolDevColumn" msprop:Generator_UserColumnName="schoolDev" type="xs:decimal" />
+              <xs:element name="furnFund" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnfurnFund" msprop:Generator_ColumnPropNameInRow="furnFund" msprop:Generator_ColumnPropNameInTable="furnFundColumn" msprop:Generator_UserColumnName="furnFund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="labDev" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnlabDev" msprop:Generator_ColumnPropNameInRow="labDev" msprop:Generator_ColumnPropNameInTable="labDevColumn" msprop:Generator_UserColumnName="labDev" type="xs:decimal" />
+              <xs:element name="caution" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columncaution" msprop:Generator_ColumnPropNameInRow="caution" msprop:Generator_ColumnPropNameInTable="cautionColumn" msprop:Generator_UserColumnName="caution" type="xs:decimal" minOccurs="0" />
+              <xs:element name="beltTie" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnbeltTie" msprop:Generator_ColumnPropNameInRow="beltTie" msprop:Generator_ColumnPropNameInTable="beltTieColumn" msprop:Generator_UserColumnName="beltTie" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntotal" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_UserColumnName="total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Provisional" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnProvisional" msprop:Generator_ColumnPropNameInRow="Provisional" msprop:Generator_ColumnPropNameInTable="ProvisionalColumn" msprop:Generator_UserColumnName="Provisional" type="xs:decimal" minOccurs="0" />
+              <xs:element name="class_code" msprop:Generator_ColumnVarNameInTable="columnclass_code" msprop:Generator_ColumnPropNameInRow="class_code" msprop:Generator_ColumnPropNameInTable="class_codeColumn" msprop:Generator_UserColumnName="class_code" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cheque" msprop:Generator_ColumnVarNameInTable="columncheque" msprop:Generator_ColumnPropNameInRow="cheque" msprop:Generator_ColumnPropNameInTable="chequeColumn" msprop:Generator_UserColumnName="cheque" type="xs:decimal" minOccurs="0" />
+              <xs:element name="terminal" msprop:Generator_ColumnVarNameInTable="columnterminal" msprop:Generator_ColumnPropNameInRow="terminal" msprop:Generator_ColumnPropNameInTable="terminalColumn" msprop:Generator_UserColumnName="terminal" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

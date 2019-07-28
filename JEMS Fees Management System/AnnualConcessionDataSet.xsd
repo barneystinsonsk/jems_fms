@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AnnualConcessionDataSet" targetNamespace="http://tempuri.org/AnnualConcessionDataSet.xsd" xmlns:mstns="http://tempuri.org/AnnualConcessionDataSet.xsd" xmlns="http://tempuri.org/AnnualConcessionDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.JEMS_Fees_Management_System.Properties.Settings.GlobalReference.Default.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>with Sub as
+(
+(select student_annual_fees.student_id, student_annual_fees.session as session, /*student_monthly_fees.month, */
+		student_annual_fees.class
+		,0 as ad_fees
+		,0 as fur_fund
+		,(annual_base_struct.school_dev - student_annual_fees.school_dev) as sch_dev
+		,(annual_base_struct.lab_dev - student_annual_fees.lab_dev) as lab_dev
+
+		
+from student_annual_fees join annual_base_struct on 
+student_annual_fees.session = annual_base_struct.session and 
+student_annual_fees.class = annual_base_struct.class where concession = 1 and
+(receipt_id is null or receipt_id like 'AN%') and
+student_annual_fees.session like @session
+) 
+union
+(
+select student_details.student_id,/* first_name, middle_name, last_name, */
+		student_details.admission_session as session, /*student_monthly_fees.month, */
+		student_details.admission_class
+		,(admission_base_struct.admission_fees - student_details.admission_fees) as ad_fees
+		,(admission_base_struct.furniture_fund - student_details.furniture_fund) as fur_fund
+		,(admission_base_struct.school_dev - student_annual_fees.school_dev) as sch_dev
+		,(admission_base_struct.lab_dev - student_annual_fees.lab_dev) as lab_dev
+		
+from student_details join admission_base_struct on  
+student_details.admission_session = admission_base_struct.session and 
+student_details.admission_class = admission_base_struct.class 
+ join student_annual_fees on
+ student_details.receipt_id = student_annual_fees.receipt_id
+	where student_details.concession = 1 and
+(student_details.receipt_id is null or student_details.receipt_id like 'AD%') and
+student_details.admission_session like @session
+)
+)
+,
+
+Main as
+(/*select student_id, session, sum(sch_dev) as sch_dev,sum(lab_dev) as lab_dev, sum(caution) as caution*/
+select student_id, session, sum(ad_fees) as ad_fees, sum(fur_fund) as fur_fund, 
+sum(sch_dev) as sch_dev,sum(lab_dev) as lab_dev, class
+from Sub
+where 
+ad_fees &gt;= 0 and
+fur_fund &gt;=0 and
+sch_dev &gt;= 0 and
+lab_dev &gt;= 0 and
+(ad_fees +
+fur_fund +
+sch_dev +
+lab_dev) &gt; 0
+group by Sub.student_id, Sub.session, Sub.class
+)
+
+select Main.student_id, first_name, middle_name, last_name, 
+case
+	when Main.class in ('NUR') then 'NUR'
+	when Main.class in ('KG1') then 'KG 1'
+	when Main.class in ('KG2') then 'KG 2'
+	when Main.class in ('001') then 'I'
+	when Main.class in ('002') then 'II'
+	when Main.class in ('003') then 'III'
+	when Main.class in ('004') then 'IV'
+	when Main.class in ('005') then 'V'
+	when Main.class in ('006') then 'VI'
+	when Main.class in ('007') then 'VII'
+	when Main.class in ('008') then 'VIII'
+	when Main.class in ('009') then 'IX'
+	when Main.class in ('010') then 'X'
+	when Main.class in ('C1P') then 'XI COM'	
+	when Main.class in ('C1I') then 'XI IP'
+	when Main.class in ('S11') then 'XI SC'
+	when Main.class in ('C2P') then 'XII COM'	
+	when Main.class in ('C2I') then 'XII IP'
+	when Main.class in ('S12') then 'XII SC'
+end
+as theClass, ad_fees, fur_fund, sch_dev, lab_dev
+from 
+Main join student_details on Main.student_id = student_details.student_id 
+
+order by
+(
+case 
+	when Main.class in ('NUR') then 1
+	when Main.class in ('KG1') then 2
+	when Main.class in ('KG2') then 3
+	when Main.class in ('001') then 4
+	when Main.class in ('002') then 5
+	when Main.class in ('003') then 6
+	when Main.class in ('004') then 7
+	when Main.class in ('005') then 8
+	when Main.class in ('006') then 9
+	when Main.class in ('007') then 10
+	when Main.class in ('008') then 11
+	when Main.class in ('009') then 12
+	when Main.class in ('010') then 13
+	when Main.class in ('C1P') then 14
+	when Main.class in ('C1I') then 15
+	when Main.class in ('S11') then 16
+	when Main.class in ('C2P') then 17
+	when Main.class in ('C2I') then 18
+	when Main.class in ('S12') then 19
+end);</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="session" ColumnName="" DataSourceName="" DataTypeServer="nchar(4)" DbType="String" Direction="Input" ParameterName="@session" Precision="0" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="student_id" DataSetColumn="student_id" />
+              <Mapping SourceColumn="first_name" DataSetColumn="first_name" />
+              <Mapping SourceColumn="middle_name" DataSetColumn="middle_name" />
+              <Mapping SourceColumn="last_name" DataSetColumn="last_name" />
+              <Mapping SourceColumn="sch_dev" DataSetColumn="sch_dev" />
+              <Mapping SourceColumn="lab_dev" DataSetColumn="lab_dev" />
+              <Mapping SourceColumn="ad_fees" DataSetColumn="ad_fees" />
+              <Mapping SourceColumn="fur_fund" DataSetColumn="fur_fund" />
+              <Mapping SourceColumn="theClass" DataSetColumn="theClass" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="AnnualConcessionDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="AnnualConcessionDataSet" msprop:Generator_UserDSName="AnnualConcessionDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="student_id" msprop:Generator_ColumnVarNameInTable="columnstudent_id" msprop:Generator_ColumnPropNameInRow="student_id" msprop:Generator_ColumnPropNameInTable="student_idColumn" msprop:Generator_UserColumnName="student_id" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="first_name" msprop:Generator_ColumnVarNameInTable="columnfirst_name" msprop:Generator_ColumnPropNameInRow="first_name" msprop:Generator_ColumnPropNameInTable="first_nameColumn" msprop:Generator_UserColumnName="first_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="middle_name" msprop:Generator_ColumnVarNameInTable="columnmiddle_name" msprop:Generator_ColumnPropNameInRow="middle_name" msprop:Generator_ColumnPropNameInTable="middle_nameColumn" msprop:Generator_UserColumnName="middle_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="last_name" msprop:Generator_ColumnVarNameInTable="columnlast_name" msprop:Generator_ColumnPropNameInRow="last_name" msprop:Generator_ColumnPropNameInTable="last_nameColumn" msprop:Generator_UserColumnName="last_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="sch_dev" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnsch_dev" msprop:Generator_ColumnPropNameInRow="sch_dev" msprop:Generator_ColumnPropNameInTable="sch_devColumn" msprop:Generator_UserColumnName="sch_dev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lab_dev" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnlab_dev" msprop:Generator_ColumnPropNameInRow="lab_dev" msprop:Generator_ColumnPropNameInTable="lab_devColumn" msprop:Generator_UserColumnName="lab_dev" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ad_fees" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnad_fees" msprop:Generator_ColumnPropNameInRow="ad_fees" msprop:Generator_ColumnPropNameInTable="ad_feesColumn" msprop:Generator_UserColumnName="ad_fees" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fur_fund" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnfur_fund" msprop:Generator_ColumnPropNameInRow="fur_fund" msprop:Generator_ColumnPropNameInTable="fur_fundColumn" msprop:Generator_UserColumnName="fur_fund" type="xs:decimal" minOccurs="0" />
+              <xs:element name="theClass" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntheClass" msprop:Generator_ColumnPropNameInRow="theClass" msprop:Generator_ColumnPropNameInTable="theClassColumn" msprop:Generator_UserColumnName="theClass" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="7" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
